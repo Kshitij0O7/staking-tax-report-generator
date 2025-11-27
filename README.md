@@ -38,7 +38,7 @@ npm run dev
 
 Create a `.env.local` file in the root directory with:
 
-- `BITQUERY_API_KEY`: Your Bitquery API key (required) - Bearer token format
+- `BITQUERY_API_KEY`: Your Bitquery API key (required)
 - `BITQUERY_API_URL`: Bitquery API endpoint (optional, default: https://streaming.bitquery.io/graphql)
 
 **Note:** 
