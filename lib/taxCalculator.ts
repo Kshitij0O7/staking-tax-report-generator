@@ -31,34 +31,34 @@ export function calculateTax(quarterlyIncome: number): { rate: number; amount: n
 }
 
 export function generateTaxReport(aggregatedData: AggregatedData[]): TaxCalculation[] {
-  // Filter for quarterly aggregates only
-  const quarterlyData = aggregatedData.filter(
-    (data) => data.period === 'quarterly' && data.netPositionUSD > 0
+  // Filter for monthly aggregates only
+  const monthlyData = aggregatedData.filter(
+    (data) => data.period === 'monthly' && data.netPositionUSD > 0
   )
 
-  // Group by quarter and calculate total income per quarter
-  const quarterMap = new Map<string, number>()
+  // Group by month and calculate total income per month
+  const monthMap = new Map<string, number>()
 
-  quarterlyData.forEach((data) => {
-    const quarter = data.date || 'Unknown'
-    const currentIncome = quarterMap.get(quarter) || 0
-    quarterMap.set(quarter, currentIncome + data.netPositionUSD)
+  monthlyData.forEach((data) => {
+    const month = data.date || 'Unknown'
+    const currentIncome = monthMap.get(month) || 0
+    monthMap.set(month, currentIncome + data.netPositionUSD)
   })
 
-  // Calculate tax for each quarter
+  // Calculate tax for each month
   const taxCalculations: TaxCalculation[] = []
 
-  quarterMap.forEach((income, quarter) => {
+  monthMap.forEach((income, month) => {
     const { rate, amount } = calculateTax(income)
     taxCalculations.push({
       quarterlyIncome: income,
       taxRate: rate,
       taxAmount: amount,
-      quarter,
+      quarter: month, // Using quarter field to store month value for backwards compatibility
     })
   })
 
-  // Sort by quarter (most recent first)
+  // Sort by month (most recent first)
   return taxCalculations.sort((a, b) => b.quarter.localeCompare(a.quarter))
 }
 

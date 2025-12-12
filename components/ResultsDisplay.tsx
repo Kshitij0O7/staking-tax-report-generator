@@ -730,7 +730,7 @@ export default function ResultsDisplay({
             <div className="p-6">
               {taxReport.length === 0 ? (
                 <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-                  No quarterly data available for tax calculation
+                  No monthly data available for tax calculation
                 </div>
               ) : (
                 <div className="space-y-6">
@@ -739,7 +739,7 @@ export default function ResultsDisplay({
                       Tax Calculation Summary
                     </h3>
                     <p className="text-sm text-blue-700 dark:text-blue-300">
-                      Tax is calculated based on quarterly income using progressive tax brackets.
+                      Tax is calculated based on monthly income using progressive tax brackets.
                     </p>
                   </div>
 
@@ -747,8 +747,8 @@ export default function ResultsDisplay({
                     <table className="w-full text-sm">
                       <thead className="bg-gray-50 dark:bg-gray-700">
                         <tr>
-                          <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Quarter</th>
-                          <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Quarterly Income (USD)</th>
+                          <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Month</th>
+                          <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Monthly Income (USD)</th>
                           <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Tax Rate (%)</th>
                           <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Tax Amount (USD)</th>
                         </tr>
