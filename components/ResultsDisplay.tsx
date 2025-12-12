@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
-import { FileText, RotateCcw, ExternalLink, Calendar, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, X, Download } from 'lucide-react'
+import { FileText, RotateCcw, ExternalLink, Calendar, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, X, Download, ArrowUp, ArrowDown } from 'lucide-react'
 import { filterByTaxYear } from '@/lib/dataProcessor'
 import { generateTaxReport } from '@/lib/taxCalculator'
 import Papa from 'papaparse'
@@ -236,6 +236,21 @@ export default function ResultsDisplay({
     return num.toFixed(decimals)
   }
 
+  const renderSortIndicator = (field: string) => {
+    if (sortField !== field) {
+      return (
+        <span className="inline-flex flex-col ml-1 opacity-30">
+          <ArrowUp className="h-3 w-3" />
+        </span>
+      )
+    }
+    return sortDirection === 'asc' ? (
+      <ArrowUp className="h-3 w-3 ml-1 text-blue-600 dark:text-blue-400" />
+    ) : (
+      <ArrowDown className="h-3 w-3 ml-1 text-blue-600 dark:text-blue-400" />
+    )
+  }
+
   return (
     <div className="max-w-7xl mx-auto space-y-6">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
@@ -367,19 +382,34 @@ export default function ResultsDisplay({
               <thead className="bg-gray-50 dark:bg-gray-700">
                 <tr>
                   <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('validatorAddress')}>
-                    Block Builder
+                    <div className="flex items-center">
+                      Block Builder
+                      {renderSortIndicator('validatorAddress')}
+                    </div>
                   </th>
                   <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('date')}>
-                    Date
+                    <div className="flex items-center">
+                      Date
+                      {renderSortIndicator('date')}
+                    </div>
                   </th>
                   <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('eventType')}>
-                    Event Type
+                    <div className="flex items-center">
+                      Event Type
+                      {renderSortIndicator('eventType')}
+                    </div>
                   </th>
                   <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('rewardAmountETH')}>
-                    Taxable Rewards (ETH)
+                    <div className="flex items-center justify-end">
+                      Taxable Rewards (ETH)
+                      {renderSortIndicator('rewardAmountETH')}
+                    </div>
                   </th>
                   <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('rewardAmountUSD')}>
-                    Taxable Rewards (USD)
+                    <div className="flex items-center justify-end">
+                      Taxable Rewards (USD)
+                      {renderSortIndicator('rewardAmountUSD')}
+                    </div>
                   </th>
                   <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Actions</th>
                 </tr>
