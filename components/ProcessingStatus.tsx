@@ -24,9 +24,13 @@ export default function ProcessingStatus({ progress, onCancel }: ProcessingStatu
         </div>
 
         <div className="space-y-4">
-          <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-2">
-            <span>Progress</span>
-            <span>{progress.current} / {progress.total} validators</span>
+          <div className="text-center mb-4">
+            <p className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-1">
+              Processing validators
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-500">
+              Please wait while we fetch transaction data...
+            </p>
           </div>
           
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 overflow-hidden">
