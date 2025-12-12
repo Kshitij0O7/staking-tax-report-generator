@@ -19,7 +19,7 @@ export default function ProcessingStatus({ progress, onCancel }: ProcessingStatu
             Processing Block Builders
           </h2>
           <p className="text-gray-600 dark:text-gray-400">
-            Fetching balance updates from Bitquery API...
+            Fetching balance updates from Bitquery...
           </p>
         </div>
 
@@ -29,7 +29,7 @@ export default function ProcessingStatus({ progress, onCancel }: ProcessingStatu
               Processing block builders
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-500">
-              Please wait while we fetch transaction data...
+              Please wait while we fetch transaction data from Bitquery...
             </p>
           </div>
           

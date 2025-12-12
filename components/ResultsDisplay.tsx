@@ -260,6 +260,13 @@ export default function ResultsDisplay({
           </h2>
           <div className="flex gap-2">
             <button
+              onClick={() => window.open('https://ide.bitquery.io/Block-builder-rewards-query', '_blank', 'noopener,noreferrer')}
+              className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm flex items-center gap-2 font-medium"
+            >
+              <ExternalLink className="h-4 w-4" />
+              Get API
+            </button>
+            <button
               onClick={handleGenerateReport}
               className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm flex items-center gap-2 font-medium"
             >
