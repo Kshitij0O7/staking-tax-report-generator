@@ -4,7 +4,7 @@ const BITQUERY_API_URL = process.env.BITQUERY_API_URL || 'https://streaming.bitq
 
 export async function POST(request: NextRequest) {
   try {
-    const { addresses, monthsAgo = 3, offset = 0 } = await request.json()
+    const { addresses, monthsAgo = 1, offset = 0 } = await request.json()
 
     if (!addresses || !Array.isArray(addresses) || addresses.length === 0) {
       return NextResponse.json(

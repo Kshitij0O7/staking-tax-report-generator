@@ -33,7 +33,7 @@ interface BitqueryResponse {
 
 export async function fetchBalanceUpdates(
   addresses: string[],
-  monthsAgo: number = 3,
+  monthsAgo: number = 1,
   offset: number = 0
 ): Promise<BalanceUpdate[]> {
   try {
@@ -121,7 +121,7 @@ export async function fetchBalanceUpdates(
 export async function processValidators(
   validators: ValidatorAddress[],
   onProgress?: (current: number, total: number) => void,
-  monthsAgo: number = 3
+  monthsAgo: number = 1
 ): Promise<BalanceUpdate[]> {
   // Extract addresses from validators array
   const addresses = validators.map(v => v.address)
