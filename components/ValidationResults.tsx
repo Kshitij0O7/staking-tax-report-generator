@@ -39,7 +39,7 @@ export default function ValidationResults({
                 ✓ File validation passed!
               </p>
               <p className="text-green-700 dark:text-green-300 text-sm mt-1">
-                Found {validators.length} valid validator address{validators.length !== 1 ? 'es' : ''}
+                Found {validators.length} valid block builder address{validators.length !== 1 ? 'es' : ''}
               </p>
             </div>
 
@@ -72,7 +72,7 @@ export default function ValidationResults({
                 className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
               >
                 <Play className="h-5 w-5" />
-                Process Validators
+                Process Block Builders
               </button>
               <button
                 onClick={onReset}

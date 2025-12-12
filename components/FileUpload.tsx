@@ -53,7 +53,7 @@ export default function FileUpload({ onFileSelect }: FileUploadProps) {
       >
         <Upload className="mx-auto h-12 w-12 text-gray-400 mb-4" />
         <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
-          Upload Validator Addresses
+          Upload Block Builder Addresses
         </h3>
         <p className="text-gray-600 dark:text-gray-400 mb-4">
           Drag and drop a CSV or Excel file, or click to browse

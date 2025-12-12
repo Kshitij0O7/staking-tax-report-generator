@@ -1,4 +1,4 @@
-import { format, parseISO, startOfMonth, startOfQuarter } from 'date-fns'
+import { format, parseISO, startOfMonth } from 'date-fns'
 import type { BalanceUpdate, ProcessedData, AggregatedData } from '@/types'
 
 export function normalizeData(balanceUpdates: BalanceUpdate[]): ProcessedData[] {
@@ -67,41 +67,6 @@ export function generateAggregates(processedData: ProcessedData[]): AggregatedDa
       aggregates.set(key, existing)
     } catch (error) {
       console.error('Error processing date for monthly aggregate:', error)
-    }
-  })
-
-  // Quarterly aggregates
-  processedData.forEach(data => {
-    try {
-      const date = parseISO(data.date)
-      const quarterStart = startOfQuarter(date)
-      const quarterKey = format(quarterStart, 'yyyy-QQ')
-      const key = `${data.validatorAddress}-${quarterKey}-quarterly`
-      
-      const existing = aggregates.get(key) || {
-        validatorAddress: data.validatorAddress,
-        date: quarterKey,
-        period: 'quarterly' as const,
-        totalRewardETH: 0,
-        totalRewardUSD: 0,
-        totalPenaltyETH: 0,
-        totalPenaltyUSD: 0,
-        netPositionETH: 0,
-        netPositionUSD: 0,
-        transactionCount: 0,
-      }
-
-      existing.totalRewardETH += data.rewardAmountETH
-      existing.totalRewardUSD += data.rewardAmountUSD
-      existing.totalPenaltyETH += data.penaltyAmountETH
-      existing.totalPenaltyUSD += data.penaltyAmountUSD
-      existing.transactionCount += 1
-      existing.netPositionETH = existing.totalRewardETH - existing.totalPenaltyETH
-      existing.netPositionUSD = existing.totalRewardUSD - existing.totalPenaltyUSD
-
-      aggregates.set(key, existing)
-    } catch (error) {
-      console.error('Error processing date for quarterly aggregate:', error)
     }
   })
 

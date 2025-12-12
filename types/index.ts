@@ -42,7 +42,7 @@ export interface AggregatedData {
   validatorAddress?: string
   date?: string
   eventType?: string
-  period?: 'monthly' | 'quarterly'
+  period?: 'monthly'
   totalRewardETH: number
   totalRewardUSD: number
   totalPenaltyETH: number

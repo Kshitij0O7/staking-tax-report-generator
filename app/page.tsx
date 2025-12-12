@@ -62,7 +62,7 @@ export default function Home() {
     })
 
     if (validatedValidators.length === 0) {
-      errors.push('Please enter at least one valid validator address')
+      errors.push('Please enter at least one valid block builder address')
       setValidationErrors(errors)
       return
     }
@@ -108,8 +108,6 @@ export default function Home() {
       eventType: eventTypes[i % eventTypes.length],
       rewardAmountETH: (Math.random() * 0.5 + 0.1).toFixed(6),
       rewardAmountUSD: (Math.random() * 2000 + 300).toFixed(2),
-      penaltyAmountETH: Math.random() > 0.7 ? (Math.random() * 0.05).toFixed(6) : '0.000000',
-      penaltyAmountUSD: Math.random() > 0.7 ? (Math.random() * 100).toFixed(2) : '0.00',
       transactionHash: `0x${Math.random().toString(16).substring(2, 66)}`,
       blockNumber: Math.floor(Math.random() * 20000000 + 18000000)
     }))
@@ -140,7 +138,7 @@ export default function Home() {
       setStep('results')
     } catch (error) {
       console.error('Processing error:', error)
-      alert('Error processing validators. Please try again.')
+      alert('Error processing block builders. Please try again.')
       setStep('validation')
     }
   }
@@ -165,7 +163,7 @@ export default function Home() {
             Staking Tax Calculator
           </h1>
           <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
-            Calculate tax reports from validator addresses
+            Calculate tax reports from block builder addresses
           </p>
 
           {step === 'upload' && (
@@ -191,10 +189,10 @@ export default function Home() {
               <div className="max-w-2xl mx-auto">
                 <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
                   <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
-                    Enter Validator Addresses Manually
+                    Enter Block Builder Addresses Manually
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm">
-                    Add validator addresses one by one. Click "Add Address" to add more fields.
+                    Add block builder addresses one by one. Click "Add Address" to add more fields.
                   </p>
                   
                   <div className="space-y-3 mb-6">
@@ -204,7 +202,7 @@ export default function Home() {
                           type="text"
                           value={address}
                           onChange={(e) => updateAddress(index, e.target.value)}
-                          placeholder={`Validator address ${index + 1} (0x...)`}
+                          placeholder={`Block builder address ${index + 1} (0x...)`}
                           className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                         {manualAddresses.length > 1 && (
@@ -245,20 +243,18 @@ export default function Home() {
                     Sample Data Preview
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm">
-                    This is an example of the data structure you'll see after processing your validator addresses.
+                    This is an example of the data structure you'll see after processing your block builder addresses.
                   </p>
                   
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead className="bg-gray-50 dark:bg-gray-700">
                         <tr>
-                          <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Validator</th>
+                          <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Block Builder</th>
                           <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Date</th>
                           <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Event Type</th>
-                          <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Reward (ETH)</th>
-                          <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Reward (USD)</th>
-                          <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Penalty (ETH)</th>
-                          <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Penalty (USD)</th>
+                          <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Taxable Rewards (ETH)</th>
+                          <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Taxable Rewards (USD)</th>
                           <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Block #</th>
                         </tr>
                       </thead>
@@ -275,12 +271,6 @@ export default function Home() {
                             </td>
                             <td className="px-4 py-3 text-right text-green-600 dark:text-green-400">
                               ${row.rewardAmountUSD}
-                            </td>
-                            <td className="px-4 py-3 text-right text-red-600 dark:text-red-400">
-                              {row.penaltyAmountETH}
-                            </td>
-                            <td className="px-4 py-3 text-right text-red-600 dark:text-red-400">
-                              ${row.penaltyAmountUSD}
                             </td>
                             <td className="px-4 py-3 text-right text-gray-600 dark:text-gray-400">
                               {row.blockNumber.toLocaleString()}

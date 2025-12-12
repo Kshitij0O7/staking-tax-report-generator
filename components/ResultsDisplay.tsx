@@ -144,14 +144,12 @@ export default function ResultsDisplay({
 
     // Prepare detailed data for CSV
     const detailedRows = processedData.map(row => ({
-      'Validator Address': row.validatorAddress,
+      'Block Builder Address': row.validatorAddress,
       'Date': row.date,
       'Event Type': row.eventType,
       'Balance Update Code': row.balanceUpdateCode,
-      'Reward Amount (ETH)': row.rewardAmountETH.toFixed(6),
-      'Reward Amount (USD)': row.rewardAmountUSD.toFixed(2),
-      'Penalty Amount (ETH)': row.penaltyAmountETH.toFixed(6),
-      'Penalty Amount (USD)': row.penaltyAmountUSD.toFixed(2),
+      'Taxable Rewards (ETH)': row.rewardAmountETH.toFixed(6),
+      'Taxable Rewards (USD)': row.rewardAmountUSD.toFixed(2),
       'Transaction Hash': row.transactionHash,
       'Block Number': row.blockNumber,
       'Block Time': row.blockTime,
@@ -162,14 +160,12 @@ export default function ResultsDisplay({
     // Add summary rows with cleaner format
     const summaryRows = [
       {
-        'Validator Address': '',
+        'Block Builder Address': '',
         'Date': '',
         'Event Type': '',
         'Balance Update Code': '',
-        'Reward Amount (ETH)': '',
-        'Reward Amount (USD)': '',
-        'Penalty Amount (ETH)': '',
-        'Penalty Amount (USD)': '',
+        'Taxable Rewards (ETH)': '',
+        'Taxable Rewards (USD)': '',
         'Transaction Hash': '',
         'Block Number': '',
         'Block Time': '',
@@ -177,14 +173,12 @@ export default function ResultsDisplay({
         'Post Balance (ETH)': '',
       },
       {
-        'Validator Address': 'SUMMARY',
+        'Block Builder Address': 'SUMMARY',
         'Date': '',
         'Event Type': '',
         'Balance Update Code': '',
-        'Reward Amount (ETH)': '',
-        'Reward Amount (USD)': '',
-        'Penalty Amount (ETH)': '',
-        'Penalty Amount (USD)': '',
+        'Taxable Rewards (ETH)': '',
+        'Taxable Rewards (USD)': '',
         'Transaction Hash': '',
         'Block Number': '',
         'Block Time': '',
@@ -192,14 +186,12 @@ export default function ResultsDisplay({
         'Post Balance (ETH)': '',
       },
       {
-        'Validator Address': 'Total Revenue (USD)',
+        'Block Builder Address': 'Total Revenue (USD)',
         'Date': '',
         'Event Type': '',
         'Balance Update Code': '',
-        'Reward Amount (ETH)': '',
-        'Reward Amount (USD)': totalRevenue.toFixed(2),
-        'Penalty Amount (ETH)': '',
-        'Penalty Amount (USD)': '',
+        'Taxable Rewards (ETH)': '',
+        'Taxable Rewards (USD)': totalRevenue.toFixed(2),
         'Transaction Hash': '',
         'Block Number': '',
         'Block Time': '',
@@ -207,14 +199,12 @@ export default function ResultsDisplay({
         'Post Balance (ETH)': '',
       },
       {
-        'Validator Address': 'Total Taxes (USD)',
+        'Block Builder Address': 'Total Taxes (USD)',
         'Date': '',
         'Event Type': '',
         'Balance Update Code': '',
-        'Reward Amount (ETH)': '',
-        'Reward Amount (USD)': totalTaxes.toFixed(2),
-        'Penalty Amount (ETH)': '',
-        'Penalty Amount (USD)': '',
+        'Taxable Rewards (ETH)': '',
+        'Taxable Rewards (USD)': totalTaxes.toFixed(2),
         'Transaction Hash': '',
         'Block Number': '',
         'Block Time': '',
@@ -251,7 +241,7 @@ export default function ResultsDisplay({
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-            Staking Tax Report
+            Block Builder Tax Report
           </h2>
           <div className="flex gap-2">
             <button
@@ -292,14 +282,14 @@ export default function ResultsDisplay({
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Validator
+              Block Builder
             </label>
             <select
               value={filterValidator}
               onChange={(e) => setFilterValidator(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
             >
-              <option value="">All Validators</option>
+              <option value="">All Block Builders</option>
               {uniqueValidators.map((v) => (
                 <option key={v} value={v}>
                   {v.slice(0, 10)}...
@@ -377,7 +367,7 @@ export default function ResultsDisplay({
               <thead className="bg-gray-50 dark:bg-gray-700">
                 <tr>
                   <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('validatorAddress')}>
-                    Validator
+                    Block Builder
                   </th>
                   <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('date')}>
                     Date
@@ -386,10 +376,10 @@ export default function ResultsDisplay({
                     Event Type
                   </th>
                   <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('rewardAmountETH')}>
-                    Reward (ETH)
+                    Taxable Rewards (ETH)
                   </th>
                   <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('rewardAmountUSD')}>
-                    Reward (USD)
+                    Taxable Rewards (USD)
                   </th>
                   <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Actions</th>
                 </tr>
@@ -436,13 +426,12 @@ export default function ResultsDisplay({
             <table className="w-full text-sm">
               <thead className="bg-gray-50 dark:bg-gray-700">
                 <tr>
-                  <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Validator</th>
+                  <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Block Builder</th>
                   <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Date</th>
                   <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Event Type</th>
                   <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Pre Balance (ETH)</th>
                   <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Post Balance (ETH)</th>
-                  <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Reward (ETH)</th>
-                  <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Penalty (ETH)</th>
+                  <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Taxable Rewards (ETH)</th>
                   <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Tx Hash</th>
                   <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Block</th>
                 </tr>
@@ -463,9 +452,6 @@ export default function ResultsDisplay({
                     </td>
                     <td className="px-4 py-3 text-right text-green-600 dark:text-green-400">
                       {formatNumber(row.rewardAmountETH, 6)}
-                    </td>
-                    <td className="px-4 py-3 text-right text-red-600 dark:text-red-400">
-                      {formatNumber(row.penaltyAmountETH, 6)}
                     </td>
                     <td className="px-4 py-3 font-mono text-xs text-gray-600 dark:text-gray-400">
                       <a
@@ -541,12 +527,11 @@ export default function ResultsDisplay({
               <table className="w-full text-sm">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
-                    <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Validator</th>
+                    <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Block Builder</th>
                     <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Date</th>
                     <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Event Type</th>
-                    <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Reward (ETH)</th>
-                    <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Reward (USD)</th>
-                    <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Penalty (ETH)</th>
+                    <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Taxable Rewards (ETH)</th>
+                    <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Taxable Rewards (USD)</th>
                     <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Tx Hash</th>
                   </tr>
                 </thead>
@@ -563,9 +548,6 @@ export default function ResultsDisplay({
                       </td>
                       <td className="px-4 py-3 text-right text-green-600 dark:text-green-400">
                         ${formatNumber(row.rewardAmountUSD, 2)}
-                      </td>
-                      <td className="px-4 py-3 text-right text-red-600 dark:text-red-400">
-                        {formatNumber(row.penaltyAmountETH, 6)}
                       </td>
                       <td className="px-4 py-3 font-mono text-xs text-gray-600 dark:text-gray-400">
                         <a
@@ -597,11 +579,10 @@ export default function ResultsDisplay({
               <thead className="bg-gray-50 dark:bg-gray-700">
                 <tr>
                   <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Period</th>
-                  <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Validator</th>
+                  <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Block Builder</th>
                   <th className="px-4 py-3 text-left text-gray-700 dark:text-gray-300">Date</th>
-                  <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Total Reward (ETH)</th>
-                  <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Total Reward (USD)</th>
-                  <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Total Penalty (ETH)</th>
+                  <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Total Taxable Rewards (ETH)</th>
+                  <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Total Taxable Rewards (USD)</th>
                   <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Net Position (ETH)</th>
                   <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Net Position (USD)</th>
                   <th className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">Tx Count</th>
@@ -622,9 +603,6 @@ export default function ResultsDisplay({
                     </td>
                     <td className="px-4 py-3 text-right text-green-600 dark:text-green-400">
                       ${formatNumber(row.totalRewardUSD, 2)}
-                    </td>
-                    <td className="px-4 py-3 text-right text-red-600 dark:text-red-400">
-                      {formatNumber(row.totalPenaltyETH, 6)}
                     </td>
                     <td className="px-4 py-3 text-right text-gray-900 dark:text-white font-medium">
                       {formatNumber(row.netPositionETH, 6)}

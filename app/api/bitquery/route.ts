@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
 
     if (!addresses || !Array.isArray(addresses) || addresses.length === 0) {
       return NextResponse.json(
-        { error: 'Array of validator addresses is required' },
+        { error: 'Array of block builder addresses is required' },
         { status: 400 }
       )
     }
@@ -28,8 +28,8 @@ export async function POST(request: NextRequest) {
     const query = `query MyQuery {
   EVM(network: eth, dataset: realtime) {
     TransactionBalances(
-      orderBy: {ascending: Block_Time}
-      limit: {offset: ${offset}}
+      orderBy: {descending: Block_Time}
+      limit: {count: 10000, offset: ${offset}}
       where: {
         TokenBalance: {
           BalanceChangeReasonCode: {eq: 5}, 
